@@ -1,0 +1,25 @@
+{
+	"name": "vite-project",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite src",
+		"build": "vite build src",
+		"preview": "vite preview",
+		"webp": "simple-webp-converter"
+	},
+	"devDependencies": {
+		"autoprefixer": "^10.4.8",
+		"postcss": "^8.4.16",
+		"sass": "^1.54.6",
+		"simple-webp-converter": "^1.0.3",
+		"vite": "^3.0.7",
+		"vite-plugin-handlebars": "^1.6.0",
+		"vite-plugin-imagemin": "^0.4.6"
+	},
+	"dependencies": {},
+	"simple-webp-converter": {
+		"src": "/src/img/**/**.{png, jpg, jpeg}"
+	}
+}

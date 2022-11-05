@@ -1,0 +1,24 @@
+html {
+  font-size: 62.5%;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  & > main {
+    flex: 1 1 auto;
+  }
+}
+
+.container {
+  width: min($containerWidth, 100% - $padding);
+  margin-inline: auto;
+}
+
+img {
+  object-fit: cover;
+  max-width: 100%;
+}
