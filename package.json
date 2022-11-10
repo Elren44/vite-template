@@ -15,6 +15,7 @@
 		"sass": "^1.54.6",
 		"simple-webp-converter": "^1.0.3",
 		"vite": "^3.0.7",
+		"vite-plugin-full-reload": "^1.0.4",
 		"vite-plugin-handlebars": "^1.6.0",
 		"vite-plugin-imagemin": "^0.4.6"
 	},

@@ -5,12 +5,14 @@ import handlebars from 'vite-plugin-handlebars';
 import viteImagemin from 'vite-plugin-imagemin';
 import viteWebP from './plugins/vite-webP';
 import viteWebpHtml from './plugins/vite-webP-html';
+import FullReload from 'vite-plugin-full-reload';
 
 export default defineConfig({
   base: './',
   root: './src',
 
   plugins: [
+    FullReload(['./**/*'], { always: true }),
     viteWebP(),
     handlebars({
       partialDirectory: resolve(__dirname, 'partials'),
