@@ -7,15 +7,23 @@ html {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-
+  &.locked {
+    overflow-y: hidden;
+    max-height: 100vh;
+  }
   & > main {
     flex: 1 1 auto;
   }
 }
 
-.container {
+div[class*="__container"] {
   width: min($containerWidth, 100% - $padding);
   margin-inline: auto;
+}
+
+a[disabled] {
+  pointer-events: none;
+  cursor: default;
 }
 
 img {
