@@ -1,25 +1,28 @@
-import { defineConfig } from 'vite';
-import { resolve } from 'path';
-import path from 'path';
-import handlebars from 'vite-plugin-handlebars';
-import viteImagemin from 'vite-plugin-imagemin';
-import viteWebP from './plugins/vite-webP';
-import viteWebpHtml from './plugins/vite-webP-html';
-import FullReload from 'vite-plugin-full-reload';
+import { defineConfig } from "vite";
+import { resolve } from "path";
+import path from "path";
+import handlebars from "vite-plugin-handlebars";
+import viteImagemin from "vite-plugin-imagemin";
+import viteWebP from "./plugins/vite-webP";
+import viteWebpHtml from "./plugins/vite-webP-html";
+import FullReload from "vite-plugin-full-reload";
+
+const root = resolve(__dirname, "./");
+const outDir = resolve(__dirname, "../dist");
 
 export default defineConfig({
-  base: './',
-  root: './src',
+  base: "./",
+  root,
 
   plugins: [
-    FullReload(['./**/*'], { always: true }),
+    FullReload(["./**/*"], { log: false }),
     viteWebP(),
     handlebars({
-      partialDirectory: resolve(__dirname, 'partials'),
+      partialDirectory: resolve(__dirname, "partials"),
     }),
     {
-      enforce: 'post',
-      apply: 'build',
+      enforce: "post",
+      apply: "build",
       ...viteWebpHtml(),
     },
     viteImagemin({
@@ -46,10 +49,10 @@ export default defineConfig({
       svgo: {
         plugins: [
           {
-            name: 'removeViewBox',
+            name: "removeViewBox",
           },
           {
-            name: 'removeEmptyAttrs',
+            name: "removeEmptyAttrs",
             active: false,
           },
         ],
@@ -57,35 +60,43 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: '../dist',
-    srcDir: './',
-    publicDir: './',
+    outDir,
+    srcDir: "./",
+    publicDir: "./",
     emptyOutDir: true,
 
     rollupOptions: {
+      input: {
+        main: resolve(root, "index.html"),
+      },
       output: {
         assetFileNames: (assetInfo) => {
           var folderName = path.basename(path.dirname(assetInfo.name));
-          var info = assetInfo.name.split('.');
+          var info = assetInfo.name.split(".");
           var extType = info[info.length - 1];
           if (/png|jpe?g|webp|svg|gif|tiff|bmp|ico/i.test(extType)) {
-            extType = 'img';
+            extType = "img";
           } else if (/woff|woff2|eot|ttf|/.test(extType)) {
-            extType = 'css';
+            extType = "css";
           }
-          return folderName === extType || folderName === '.'
-            ? `static/${extType}/[name]-[hash][extname]`
-            : `static/${extType}/${folderName}/[name]-[hash][extname]`;
+          return folderName === extType || folderName === "."
+            ? `${extType}/[name]-[hash][extname]`
+            : `${extType}/${folderName}/[name]-[hash][extname]`;
         },
-        chunkFileNames: 'static/js/[name]-[hash].js',
-        entryFileNames: 'static/js/[name]-[hash].js',
+        chunkFileNames: "js/[name]-[hash].js",
+        entryFileNames: "js/[name]-[hash].js",
       },
     },
   },
 
   server: {
     port: 3000,
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     hmr: true,
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
   },
 });
